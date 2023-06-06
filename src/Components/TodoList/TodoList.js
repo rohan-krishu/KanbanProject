@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addTask } from '../Redux/TodoSlice';
+import { addCard } from '../Redux/CardSlice';
 import { CgClose } from 'react-icons/cg';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { GrFormAdd } from 'react-icons/gr';
@@ -11,12 +12,26 @@ function TodoList() {
     const [isClick, setIsClick] = useState(false);
     const [showAddCard, setShowAddCard] = useState(false);
     const [task, setTask] = useState('');
+    const [card, setCard] = useState('');
     const Dispatch = useDispatch();
     const { Todo } = useSelector((state)=> state.todo);
+    const { Card } = useSelector((state)=> state.card);
 
     const handleAdd = () => {
         Dispatch(addTask(task));
         setTask('');
+    }
+
+    const handleAddCard = () => {
+        Dispatch(addCard(card));
+        setCard('');
+    }
+
+    const handleEnterClick = (e) => {
+        if(e.keyCode===13){
+            Dispatch(addCard(card));
+            setCard('');
+        }
     }
 
     const handleEnter = (e) => {
@@ -29,11 +44,16 @@ function TodoList() {
   return (
     <div className={styles.wrapper}>
         {
-            Todo.map((title)=> <div className={styles.mapContainer}>
+            Todo.map((title)=> <div className={styles.mapContainer} key={title}>
                 <div className={styles.title}>
                     <span>{title}</span>
                     <span className={styles.more}><BiDotsHorizontalRounded/></span>
                 </div>
+
+                    {
+                        Card.map((card)=> <div className={styles.card}>{card}</div>)
+                    }
+                
                 {
                     !showAddCard ?
                         <button className={styles.cardButton} onClick={()=>{setShowAddCard(!showAddCard)}}>                            
@@ -44,10 +64,13 @@ function TodoList() {
                             <input 
                                 className={styles.inputCard} 
                                 placeholder='Enter a title for this card...' 
+                                value={card}
+                                onChange={(e)=>setCard(e.target.value)} 
+                                onKeyDown={handleEnterClick}                               
                                 autoFocus
                             />
                             <div className={styles.buttonContainer}>
-                                <button className={styles.button} >Add card</button>
+                                <button className={styles.button} onClick={handleAddCard}>Add card</button>
                                 <CgClose className={styles.close} onClick={()=>{setShowAddCard(!showAddCard)}} />
                             </div>
                         </div>
@@ -65,7 +88,7 @@ function TodoList() {
                     placeholder='Enter list title...'
                     value={task}
                     onChange={(e)=>setTask(e.target.value)}
-                    onkeydown={handleEnter} 
+                    onKeyDown={handleEnter} 
                     autoFocus
                 />
                 <div className={styles.buttonContainer}>
