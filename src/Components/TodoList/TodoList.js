@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTask } from '../Redux/TodoSlice';
+import { addTask, deleteTask, editTask } from '../Redux/TodoSlice';
 import { addCard } from '../Redux/CardSlice';
 import { CgClose } from 'react-icons/cg';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
@@ -13,6 +13,8 @@ function TodoList() {
     const [showAddCard, setShowAddCard] = useState(false);
     const [task, setTask] = useState('');
     const [card, setCard] = useState('');
+    const [edit, setEdit] = useState('');
+    const [showEdit, setShowEdit] = useState(false);
     const Dispatch = useDispatch();
     const { Todo } = useSelector((state)=> state.todo);
     const { Card } = useSelector((state)=> state.card);
@@ -41,13 +43,34 @@ function TodoList() {
         }
     } 
 
+    const handleDelete = (id) => {
+        Dispatch(deleteTask(id));
+    }
+
+    const handleEdit = (id, title) => {
+        Dispatch(editTask({id:id}));
+        setEdit(title);
+        setShowEdit(!showEdit);
+    }
+
+    const handleEditable = (e, task, id) => {
+        console.log(e, task)
+        if(e.keyCode===13){
+            Dispatch(editTask({id:id, title:task}));
+            setShowEdit(!showEdit);
+        }
+    }
+
   return (
     <div className={styles.wrapper}>
         {
-            Todo.map((title)=> <div className={styles.mapContainer} key={title}>
+            Todo.map((title)=> <div className={styles.mapContainer} key={title.id}>
                 <div className={styles.title}>
-                    <span>{title}</span>
-                    <span className={styles.more}><BiDotsHorizontalRounded/></span>
+                    { !showEdit ?
+                    <span className={styles.titleHead} onClick={()=> handleEdit(title.id, title.title)}>{title.title}</span> :
+                    <input className={styles.titleHead} onKeyDown={(e)=>handleEditable(e,edit, title.id)} type='text' value={edit} onChange={(e)=> setEdit(e.target.value)} />
+                    }
+                    <span onClick={() => handleDelete(title.id)} className={styles.more}><BiDotsHorizontalRounded/></span>
                 </div>
 
                     {
