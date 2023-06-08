@@ -26,10 +26,18 @@
    border: none;
 }
 .btn{
-    background: #fff;
+    background:rgb(59, 59, 240);
     height: 6.5vh; 
     width: 10vw;
     border-radius: 0.5rem;
-    margin-left: 2rem;
+   color: #fff;
     border: none;
+}
+.img{
+    /* display: flex;
+    justify-content: end; */
+    position: absolute;
+    top : 20%;
+    left : 56%;
+   
 }
