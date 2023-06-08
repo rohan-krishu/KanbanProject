@@ -1,0 +1,43 @@
+*{
+   background: linear-gradient(
+    to right,
+    rgb(219, 92, 219),
+    rgb(108, 108, 198),
+     rgb(242, 168, 180)
+   ) ;
+
+  
+}
+
+.container{
+   color : white;
+   margin-top: 10rem;
+   margin-left: 5rem;
+   font-family: 'Alexandria';
+   font-size: 22px;
+}
+.input{
+   height: 6.5vh;
+   width: 25vw;
+   border-radius: 0.5rem;
+   background: #fff;
+   color: beige;
+   cursor: pointer;
+   border: none;
+}
+.btn{
+    background:rgb(59, 59, 240);
+    height: 6.5vh; 
+    width: 10vw;
+    border-radius: 0.5rem;
+   color: #fff;
+    border: none;
+}
+.img{
+    /* display: flex;
+    justify-content: end; */
+    position: absolute;
+    top : 20%;
+    left : 56%;
+   
+}
