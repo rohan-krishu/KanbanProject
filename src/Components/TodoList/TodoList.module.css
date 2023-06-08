@@ -5,7 +5,18 @@
     gap: 1rem;
 }
 
+.card{
+    list-style: none;
+}
 
+.deleteListItem{
+    cursor: pointer;
+}
+.cardss{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
 
 .listButton{
     height: 3rem;
