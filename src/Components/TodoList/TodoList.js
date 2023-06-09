@@ -55,6 +55,7 @@ function TodoList() {
     }
 
     return (
+        <div className={styles.back}>
         <div className={styles.wrapper}>
             {Todo.map((title) => (
                 <div className={styles.mapContainer}>
@@ -144,6 +145,7 @@ function TodoList() {
                     </div>
                 </div>
             )}
+        </div>
         </div>
     );
 }

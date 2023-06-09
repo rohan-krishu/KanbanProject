@@ -3,6 +3,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     gap: 1rem;
+ 
 }
 
 .card{
@@ -165,4 +166,15 @@
     border-radius: 0.5rem;
     box-shadow: 0.2rem 0.2rem 0.6rem grey;
     margin: 0.5rem 0;
+}
+*{
+    /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrliPEDL8YfyiQ7pUtbFP1rYwrMp2GCGxzig&usqp=CAU'); */
+    /* background-color: rgb(95, 83, 83); */
+}
+.back{
+    
+    height: 100vh;
+    width: 100vw;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqHHnFp40LzvbAnrHZ79PVetnH_GWRcFVktg&usqp=CAU'); 
+    background-repeat: no-repeat;
 }
