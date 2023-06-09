@@ -47,17 +47,22 @@ function TodoList() {
         Dispatch(deleteTask(id));
     }
 
-    const handleEdit = (id, title) => {
-        Dispatch(editTask({id:id}));
+    const handleEdit = (title) => {
         setEdit(title);
         setShowEdit(!showEdit);
     }
 
-    const handleEditable = (e, task, id) => {
+    const handleEditable = (e, task, id, prev) => {
+        
         console.log(e, task)
         if(e.keyCode===13){
+            if(task !== ''){
             Dispatch(editTask({id:id, title:task}));
             setShowEdit(!showEdit);
+        }else{
+            Dispatch(editTask({id:id, title:prev}));
+            setShowEdit(!showEdit);
+        }
         }
     }
 
@@ -67,8 +72,8 @@ function TodoList() {
             Todo.map((title)=> <div className={styles.mapContainer} key={title.id}>
                 <div className={styles.title}>
                     { !showEdit ?
-                    <span className={styles.titleHead} onClick={()=> handleEdit(title.id, title.title)}>{title.title}</span> :
-                    <input className={styles.titleHead} onKeyDown={(e)=>handleEditable(e,edit, title.id)} type='text' value={edit} onChange={(e)=> setEdit(e.target.value)} />
+                    <span className={styles.titleHead} onClick={()=> handleEdit(title.title)}>{title.title}</span> :
+                    <input className={styles.titleHead} onKeyDown={(e)=>handleEditable(e,edit, title.id, title.title)} type='text' value={edit} onChange={(e)=> setEdit(e.target.value)} />
                     }
                     <span onClick={() => handleDelete(title.id)} className={styles.more}><BiDotsHorizontalRounded/></span>
                 </div>

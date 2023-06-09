@@ -20,16 +20,16 @@ const TodoSlice = createSlice({
         deleteTask:(state, action)=> {
             state.Todo = state.Todo.filter((tasks)=> tasks.id !== action.payload)
         },
-        editTask:(state, action)=> {
-            // const EditedTask = state.Todo.find((item)=> item.id === action.payload.id);
-            const EditedTask = { id : action.payload.id, title : action.payload.title } ;
-            console.log(EditedTask);
-            state.Todo.forEach((item, i)=> {
+        editTask: (state, action) => { 
+            state.Todo.map((item) => {
                 if(item.id === action.payload.id){
-                    state.Todo[i] = EditedTask;
+                    if(action.payload.title){
+                        item.title = action.payload.title
+                    }
                 }
             })
-        }
+          }
+          
     }
 });
 
