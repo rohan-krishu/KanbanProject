@@ -11,6 +11,7 @@ function App() {
       <Routes>
        
       <Route path="/" element={<Homepage />} />
+      <Route path="/kanban" element={<TodoList />} />
         <Route path="/description/:id" element={<Description />} />
       </Routes>
 

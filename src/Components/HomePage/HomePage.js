@@ -1,8 +1,13 @@
 import React from 'react';
 import styles from'./HomePage.modules.css'
 import Navbar from '../HomeNavbar/Navbar';
+import { useNavigate } from 'react-router-dom'
 
 const Homepage = () => {
+  const navigate = useNavigate()
+  const handleClick = () =>{
+    navigate('/kanban')
+  }
   return (
     <div>
       <Navbar />
@@ -11,8 +16,7 @@ const Homepage = () => {
           <div className="content">
             <h1>Trello brings all your tasks, teammates, and tools together</h1>
             <p>Keep everything in the same place—even if your team isn't.</p>
-            <input type="email" placeholder="Email" />
-            <button className={styles.btn}>Sign Up - it's free!</button>
+            <button onClick={handleClick} className={styles.btn}>Sign Up - it's free!</button>
           </div>
         </div>
         <div className="div2">

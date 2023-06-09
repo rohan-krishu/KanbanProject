@@ -10,6 +10,7 @@ import {
   Menu
 } from '@mui/material';
 import { CgTrello } from 'react-icons/cg';
+import { useNavigate } from 'react-router-dom';
 
 const NavbarWrapper = styled(AppBar)({
   backgroundColor: '#026AA7',
@@ -30,6 +31,7 @@ const RightSpace = styled('div')({
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate()
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,6 +40,10 @@ const Navbar = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
+  const handleClick =() => {
+      navigate("/kanban")
+  }
 
   return (
     <NavbarWrapper position="static">
@@ -124,10 +130,11 @@ const Navbar = () => {
             color: 'white',
             width: '300px',
             height: '50px',
-            fontSize: '1rem',
+            fontSize: '0.5rem',
             fontWeight: 'bold',
             border: 'none',
           }}
+          onClick ={handleClick}
         >
           Get Trello For Free
         </Button>

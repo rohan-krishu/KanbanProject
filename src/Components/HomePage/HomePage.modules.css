@@ -1,7 +1,7 @@
 .container {
     display: flex;
     justify-content: space-between;
-    background: linear-gradient(to bottom right, #0079BF, #65C7F7);
+    background: linear-gradient(to bottom right, #77bce4, #4192c8);
 }
 
 .div1 {
@@ -47,15 +47,17 @@
     border: none !important;
 }
 
-.div2 {
+/* .div2 {
     width: 50%;
     display: flex;
     justify-content: Left;
     align-items: center;
     padding-top: 20px;
-}
+    
+} */
 
 .div2 img {
     max-width: 100%;
     height: auto;
+    border-radius: 2rem;
 }
