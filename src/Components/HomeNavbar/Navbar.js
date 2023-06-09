@@ -25,7 +25,7 @@ const DropdownWrapper = styled('div')(({ theme }) => ({
 }));
 
 const RightSpace = styled('div')({
-  marginRight: '-18.5px',
+  marginRight: '1rem',
 });
 
 const Navbar = () => {
@@ -69,9 +69,9 @@ const Navbar = () => {
             }}
             getContentAnchorEl={null}
           >
-            <MenuItem onClick={handleMenuClose}>Feature 1</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Feature 2</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Feature 3</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Dummy 1</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Dummy 2</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Dummy 3</MenuItem>
           </Menu>
         </DropdownWrapper>
 
@@ -81,24 +81,6 @@ const Navbar = () => {
               Solutions
             </Typography>
           </Button>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-            getContentAnchorEl={null}
-          >
-            <MenuItem onClick={handleMenuClose}>Solution 1</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Solution 2</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Solution 3</MenuItem>
-          </Menu>
         </DropdownWrapper>
 
         <DropdownWrapper>
@@ -107,24 +89,6 @@ const Navbar = () => {
               Plans
             </Typography>
           </Button>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-            getContentAnchorEl={null}
-          >
-            <MenuItem onClick={handleMenuClose}>Plan 1</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Plan 2</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Plan 3</MenuItem>
-          </Menu>
         </DropdownWrapper>
 
         <DropdownWrapper>
@@ -133,24 +97,6 @@ const Navbar = () => {
               Resources
             </Typography>
           </Button>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-            getContentAnchorEl={null}
-          >
-            <MenuItem onClick={handleMenuClose}>Resource 1</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Resource 2</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Resource 3</MenuItem>
-          </Menu>
         </DropdownWrapper>
 
         <Button color="inherit" sx={{ border: 'none', m: '0 30px', marginRight: '250px' }}>

@@ -2,7 +2,7 @@ import TodoList from "./Components/TodoList/TodoList";
 import './App.css';
 import Description from "./Components/Description/Description";
 import { Routes, Route } from "react-router-dom";
-import Home from "./Components/Home/Home";
+import Homepage from "./Components/HomePage/HomePage";
 
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
     <div >
       <Routes>
        
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Homepage />} />
         <Route path="/description/:id" element={<Description />} />
       </Routes>
 
