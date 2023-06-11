@@ -4,16 +4,18 @@ import { RemoveRedEye as RemoveRedEyeIcon } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Editor } from '@tinymce/tinymce-react';
 import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './Description.css'
-import TodoList from '../TodoList/TodoList';
+import { CgClose } from 'react-icons/cg';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 const Description = () => {
     const [content, setContent] = useState('<p>Description:</p>');
     const { Todo } = useSelector(state => state.todo)
     const { id } = useParams()
+
+    const Navigate = useNavigate();
 
     const handleEditorChange = (content, editor) => {
         setContent(content);
@@ -22,15 +24,22 @@ const Description = () => {
     const users = Todo.find((ele)=>ele.id === id);
     console.log(users)
 
+    const HandleClose = () => {
+        Navigate("/kanban")
+    }
+    
+
     return (
         <div className='main-container'>
+            <CgClose
+                onClick={ HandleClose }
+            />
             <div className='container'>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                         <Box p={2} width="100%" mt={2}>
                             <div style={{ marginTop: '50px' }}>
                                 {/* <TextField id="outlined-basic" label="Section A" variant="outlined" fullWidth /> */}
-                               
                                 <Button variant="outlined" startIcon={<RemoveRedEyeIcon />} href="#outlined-buttons" sx={{ mt: 2 }}>
                                     Add
                                 </Button>
@@ -54,83 +63,84 @@ const Description = () => {
                                 <AccountCircleIcon />
                                 <TextField id="outlined-basic" label="Outlined" variant="outlined" fullWidth sx={{ marginLeft: 2 }} />
                             </div>
-                        </Box>
-                    </Grid>
 
-                    <Grid item xs={12} md={6}>
-                        <Box p={2} width="400px" mt={2} textAlign="center">
-                            <div>
-                                <div>
-                                    <h3>Add to card</h3>
-                                    <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 1
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 2
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 3
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 4
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 5
-                                        </Button>
-                                    </ButtonGroup>
-                                </div>
-                                <div>
-                                    <h3>Power-Ups</h3>
-                                    <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 1
-                                        </Button>
-                                    </ButtonGroup>
-                                </div>
-                                <div>
-                                    <h3>Automation</h3>
-                                    <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 1
-                                        </Button>
-                                    </ButtonGroup>
-                                </div>
-                                <div>
-                                    <h3>Actions</h3>
-                                    <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 1
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 2
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 3
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 4
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 5
-                                        </Button>
-                                    </ButtonGroup>
-                                </div>
-                            </div>
+                            
                         </Box>
                     </Grid>
+                    <Grid item xs={12} md={6}>
+        <Box  p={2} width="400px" mt={2} textAlign="center">
+            <div>
+            <div>
+                <h3>Add to card</h3>
+                <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
+                <Button>
+                    <RemoveRedEyeIcon />
+                    Button 1
+                </Button>
+                <Button>
+                    <RemoveRedEyeIcon />
+                    Button 2
+                </Button>
+                <Button>
+                    <RemoveRedEyeIcon />
+                    Button 3
+                </Button>
+                <Button>
+                    <RemoveRedEyeIcon />
+                    Button 4
+                </Button>
+                <Button>
+                    <RemoveRedEyeIcon />
+                    Button 5
+                </Button>
+                </ButtonGroup>
+            </div>
+            <div>
+                <h3>Power-Ups</h3>
+                <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
+                <Button>
+                    <RemoveRedEyeIcon />
+                    Button 1
+                </Button>
+                </ButtonGroup>
+            </div>
+            <div>
+                <h3>Automation</h3>
+                <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
+                <Button>
+                    <RemoveRedEyeIcon />
+                    Button 1
+                </Button>
+                </ButtonGroup>
+            </div>
+            <div>
+                <h3>Actions</h3>
+                <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
+                <Button>
+                    <RemoveRedEyeIcon />
+                    Button 1
+                </Button>
+                <Button>
+                    <RemoveRedEyeIcon />
+                    Button 2
+                </Button>
+                <Button>
+                    <RemoveRedEyeIcon />
+                    Button 3
+                </Button>
+                <Button>
+                    <RemoveRedEyeIcon />
+                    Button 4
+                </Button>
+                <Button>
+                    <RemoveRedEyeIcon />
+                    Button 5
+                </Button>
+                </ButtonGroup>
+            </div>
+            </div>
+        </Box>
+        </Grid>
                 </Grid>
             </div>
 
