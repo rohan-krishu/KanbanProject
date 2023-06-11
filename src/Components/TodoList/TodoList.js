@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTask, deleteTask, addList, editTask } from '../Redux/TodoSlice';
+import { addTask, deleteTask, addList, editTask, ListItemDelete } from '../Redux/TodoSlice';
 import { CgClose } from 'react-icons/cg';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
@@ -45,11 +45,11 @@ function TodoList() {
   };
 
   const deleteData = (id) => {
-    dispatch(deleteTask({ id }));
+    dispatch(deleteTask({ id : id}));
   };
 
-  const deleteList = () => {
-    dispatch();
+  const deleteList = (id, titleId) => {
+    dispatch(ListItemDelete({id : id, titleId : titleId}));
   };
 
   const handleEdit = (title) => {
@@ -97,7 +97,7 @@ function TodoList() {
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.wrapper}>
         {Todo.map((title) => (
-          <div className={styles.mapContainer}>
+          <div className={styles.mapContainer} key={title.id}>
             <div className={styles.title}>
               {!showEdit ?
               <span 
@@ -131,10 +131,10 @@ function TodoList() {
                     {title.TodoList.map((item, index) => (
                       <Draggable draggableId={item.id} index={index} key={item.id}>
                         {(provided) => (
-                          <li className={styles.card} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                          <li key={item.id} className={styles.card} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                             <div className={styles.cardss}>
                               <p onClick={() => handleDynamicRouting({ key: item.id })}>{item.myList}</p>
-                              <AiFillDelete className={styles.deleteListItem} onClick={() => deleteList(item.id)} />
+                              <AiFillDelete className={styles.deleteListItem} onClick={() => deleteList(item.id, title.id)} />
                             </div>
                           </li>
                         )}
