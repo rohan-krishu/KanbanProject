@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTask, deleteTask, addList } from '../Redux/TodoSlice';
+import { addTask, deleteTask, addList, editTask, ListItemDelete } from '../Redux/TodoSlice';
 import { CgClose } from 'react-icons/cg';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
@@ -8,13 +8,14 @@ import { GrFormAdd } from 'react-icons/gr';
 import styles from './TodoList.module.css';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { listItemClasses } from '@mui/material';
 
 function TodoList() {
   const [isClick, setIsClick] = useState(false);
   const [showAddCard, setShowAddCard] = useState(false);
   const [task, setTask] = useState('');
-  const [list, setList] = useState('');
+  const [list, setList] = useState('');  
+  const [edit, setEdit] = useState('');
+  const [showEdit, setShowEdit] = useState(false);
   const dispatch = useDispatch();
   const { Todo } = useSelector((state) => state.todo);
 
@@ -44,12 +45,31 @@ function TodoList() {
   };
 
   const deleteData = (id) => {
-    dispatch(deleteTask({ id }));
+    dispatch(deleteTask({ id : id}));
   };
 
-  function deleteList(key){
-    dispatch(listItemClasses(key))
+  const deleteList = (id, titleId) => {
+    dispatch(ListItemDelete({id : id, titleId : titleId}));
   };
+
+  const handleEdit = (title) => {
+    setEdit(title);
+    setShowEdit(!showEdit);
+  }
+
+  const handleEditable = (e, task, id, prev) => {
+    
+    console.log(e, task)
+    if(e.keyCode===13){
+        if(task !== ''){
+        dispatch(editTask({id:id, title:task}));
+        setShowEdit(!showEdit);
+    }else{
+        dispatch(editTask({id:id, title:prev}));
+        setShowEdit(!showEdit);
+    }
+    }
+  }
 
   function handleDynamicRouting({ key }) {
     navigate(`/description/${key}`);
@@ -57,7 +77,7 @@ function TodoList() {
 
   const onDragEnd = (result) => {
     const { source, destination } = result
-    // console.log(result)
+    console.log(result)
 
     if (!destination) return
 
@@ -77,10 +97,26 @@ function TodoList() {
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.wrapper}>
         {Todo.map((title) => (
-          <div className={styles.mapContainer}>
+          <div className={styles.mapContainer} key={title.id}>
             <div className={styles.title}>
-              <span>{title.AddData}</span>
-              <span className={styles.more} onClick={() => deleteData(title.id)}>
+              {!showEdit ?
+              <span 
+                className={styles.titleHead} 
+                onClick={()=> handleEdit(title.AddData)}
+                >{title.AddData}
+              </span> :
+              <input 
+                autoFocus 
+                className={styles.titleHead} 
+                onKeyDown={(e)=>handleEditable(e,edit, title.id, title.AddData)} 
+                type='text' 
+                value={edit} 
+                onChange={(e)=> setEdit(e.target.value)} 
+              />
+              }
+              <span 
+              className={styles.more} 
+              onClick={() => deleteData(title.id)}>
                 <AiFillDelete />
               </span>
               <span className={styles.more}>
@@ -95,10 +131,10 @@ function TodoList() {
                     {title.TodoList.map((item, index) => (
                       <Draggable draggableId={item.id} index={index} key={item.id}>
                         {(provided) => (
-                          <li className={styles.card} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                          <li key={item.id} className={styles.card} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                             <div className={styles.cardss}>
                               <p onClick={() => handleDynamicRouting({ key: item.id })}>{item.myList}</p>
-                              <AiFillDelete className={styles.deleteListItem} onClick={() => deleteList({ key: item.id })} />
+                              <AiFillDelete className={styles.deleteListItem} onClick={() => deleteList(item.id, title.id)} />
                             </div>
                           </li>
                         )}

@@ -8,6 +8,8 @@ const TodoSlice = createSlice({
     },
     reducers: {
         addTask: (state, action) => {
+            if(action.payload.myTask){
+                
             const newTask = {
                 AddData: action.payload.myTask,
                 id: uuidv4(),
@@ -16,7 +18,8 @@ const TodoSlice = createSlice({
 
             state.Todo.push(newTask)
             localStorage.setItem("tasks", JSON.stringify(state.Todo))
-        },
+        }
+    },
 
         deleteTask: (state, action) => {
             state.Todo = state.Todo.filter((item) => item.id !== action.payload.id);
@@ -27,20 +30,33 @@ const TodoSlice = createSlice({
             const { taskId, list } = action.payload;
             const task = state.Todo.find((item) => item.id === taskId);
 
-            if (task) {
-                const newList = {
-                    id: uuidv4(),
-                    myList: list
+            if(task){
+                if(list){
+                    const newList={
+                        id: uuidv4(),
+                        myList: list
+                    }
+                    task.TodoList.push(newList)
+                    localStorage.setItem("tasks", JSON.stringify(state.Todo))
+
                 }
-                task.TodoList.push(newList)
-                localStorage.setItem("tasks", JSON.stringify(state.Todo))
             }
         },
-        listItemDelete: (state, action) => {
-            
-        }
+        ListItemDelete:(state, action)=>{
+            // const newList = state.Todo.filter((item) => item.id === action.payload.titleId );
+            // newList.TodoList = newList.TodoList.filter((item) => item.id !== action.payload.id);
+        },
+        editTask: (state, action) => { 
+            state.Todo.map((item) => {
+                if(item.id === action.payload.id){
+                    if(action.payload.title){
+                        item.AddData = action.payload.title
+                    }
+                }
+            })
+          }
     }
 });
 
-export const { addTask, deleteTask, addList } = TodoSlice.actions;
+export const { addTask, deleteTask, addList, editTask, ListItemDelete } = TodoSlice.actions;
 export default TodoSlice.reducer;
