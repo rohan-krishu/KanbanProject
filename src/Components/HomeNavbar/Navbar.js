@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router-dom';
 
 const NavbarWrapper = styled(AppBar)({
   backgroundColor: '#026AA7',
+  width: "100vw",
+ 
 });
 
 const LogoIconButton = styled(IconButton)(({ theme }) => ({
@@ -46,7 +48,7 @@ const Navbar = () => {
   }
 
   return (
-    <NavbarWrapper position="static">
+    <NavbarWrapper position="static" >
       <Toolbar>
         <LogoIconButton edge="start" color="inherit" aria-label="menu" style={{ fontSize: '2rem' }}>
           <CgTrello />
@@ -105,7 +107,7 @@ const Navbar = () => {
           </Button>
         </DropdownWrapper>
 
-        <Button color="inherit" sx={{ border: 'none', m: '0 30px', marginRight: '250px' }}>
+        <Button color="inherit" sx={{ border: 'none', m: '0 30px', marginRight: '200px' }}>
           <Typography  sx={{ color: 'inherit' }}>
             Pricing
           </Typography>
@@ -130,9 +132,10 @@ const Navbar = () => {
             color: 'white',
             width: '300px',
             height: '50px',
-            fontSize: '0.5rem',
+            fontSize: '1rem',
             fontWeight: 'bold',
             border: 'none',
+            marginLeft: '0.5rem'
           }}
           onClick ={handleClick}
         >

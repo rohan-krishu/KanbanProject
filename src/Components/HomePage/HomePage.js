@@ -16,7 +16,7 @@ const Homepage = () => {
           <div className="content">
             <h1>Trello brings all your tasks, teammates, and tools together</h1>
             <p>Keep everything in the same place—even if your team isn't.</p>
-            <button onClick={handleClick} className={styles.btn}>Sign Up - it's free!</button>
+            <button onClick={handleClick} >Get Trello For Free!</button>
           </div>
         </div>
         <div className="div2">
