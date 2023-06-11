@@ -100,10 +100,23 @@ function TodoList() {
           <div className={styles.mapContainer}>
             <div className={styles.title}>
               {!showEdit ?
-              <span className={styles.titleHead} onClick={()=> handleEdit(title.AddData)}>{title.AddData}</span> :
-              <input autoFocus className={styles.titleHead} onKeyDown={(e)=>handleEditable(e,edit, title.id, title.AddData)} type='text' value={edit} onChange={(e)=> setEdit(e.target.value)} />
+              <span 
+                className={styles.titleHead} 
+                onClick={()=> handleEdit(title.AddData)}
+                >{title.AddData}
+              </span> :
+              <input 
+                autoFocus 
+                className={styles.titleHead} 
+                onKeyDown={(e)=>handleEditable(e,edit, title.id, title.AddData)} 
+                type='text' 
+                value={edit} 
+                onChange={(e)=> setEdit(e.target.value)} 
+              />
               }
-              <span className={styles.more} onClick={() => deleteData(title.id)}>
+              <span 
+              className={styles.more} 
+              onClick={() => deleteData(title.id)}>
                 <AiFillDelete />
               </span>
               <span className={styles.more}>

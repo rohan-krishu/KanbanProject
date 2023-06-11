@@ -170,3 +170,19 @@
     box-shadow: 0.2rem 0.2rem 0.6rem grey;
     margin: 0.5rem 0;
 }
+
+.cardss{
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.cardss p{
+    margin: 0;
+    width: 100%;
+}
+
+.draggable{
+    margin: 0;
+    padding: 0;
+}
