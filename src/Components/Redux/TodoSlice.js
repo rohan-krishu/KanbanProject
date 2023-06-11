@@ -35,9 +35,18 @@ const TodoSlice = createSlice({
         },
         ListItemDelete:(state, action)=>{
 
-        }
+        },
+        editTask: (state, action) => { 
+            state.Todo.map((item) => {
+                if(item.id === action.payload.id){
+                    if(action.payload.title){
+                        item.AddData = action.payload.title
+                    }
+                }
+            })
+          }
     }
 });
 
-export const { addTask, deleteTask, addList } = TodoSlice.actions;
+export const { addTask, deleteTask, addList, editTask } = TodoSlice.actions;
 export default TodoSlice.reducer;

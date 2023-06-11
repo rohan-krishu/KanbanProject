@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTask, deleteTask, addList } from '../Redux/TodoSlice';
+import { addTask, deleteTask, addList, editTask } from '../Redux/TodoSlice';
 import { CgClose } from 'react-icons/cg';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
@@ -13,7 +13,9 @@ function TodoList() {
   const [isClick, setIsClick] = useState(false);
   const [showAddCard, setShowAddCard] = useState(false);
   const [task, setTask] = useState('');
-  const [list, setList] = useState('');
+  const [list, setList] = useState('');  
+  const [edit, setEdit] = useState('');
+  const [showEdit, setShowEdit] = useState(false);
   const dispatch = useDispatch();
   const { Todo } = useSelector((state) => state.todo);
 
@@ -50,6 +52,25 @@ function TodoList() {
     dispatch();
   };
 
+  const handleEdit = (title) => {
+    setEdit(title);
+    setShowEdit(!showEdit);
+  }
+
+  const handleEditable = (e, task, id, prev) => {
+    
+    console.log(e, task)
+    if(e.keyCode===13){
+        if(task !== ''){
+        dispatch(editTask({id:id, title:task}));
+        setShowEdit(!showEdit);
+    }else{
+        dispatch(editTask({id:id, title:prev}));
+        setShowEdit(!showEdit);
+    }
+    }
+  }
+
   function handleDynamicRouting({ key }) {
     navigate(`/description/${key}`);
   }
@@ -78,7 +99,10 @@ function TodoList() {
         {Todo.map((title) => (
           <div className={styles.mapContainer}>
             <div className={styles.title}>
-              <span>{title.AddData}</span>
+              {!showEdit ?
+              <span className={styles.titleHead} onClick={()=> handleEdit(title.AddData)}>{title.AddData}</span> :
+              <input autoFocus className={styles.titleHead} onKeyDown={(e)=>handleEditable(e,edit, title.id, title.AddData)} type='text' value={edit} onChange={(e)=> setEdit(e.target.value)} />
+              }
               <span className={styles.more} onClick={() => deleteData(title.id)}>
                 <AiFillDelete />
               </span>
