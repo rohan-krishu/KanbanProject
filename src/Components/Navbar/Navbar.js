@@ -88,7 +88,7 @@ export default function SearchAppBar() {
         
         <div>
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar className={styles.Appbar} style={{ backgroundColor: 'rgb(22, 22, 22)' }}>
+                <AppBar className={styles.Appbar} style={{ backgroundColor: ' rgba(147, 143, 143 , 0.5)' }}>
                     <Toolbar >
                         <FaTh />
 
