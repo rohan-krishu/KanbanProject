@@ -7,146 +7,185 @@ import { AiFillDelete } from 'react-icons/ai';
 import { GrFormAdd } from 'react-icons/gr';
 import styles from './TodoList.module.css';
 import { useNavigate } from 'react-router-dom';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 function TodoList() {
-    const [isClick, setIsClick] = useState(false);
-    const [showAddCard, setShowAddCard] = useState(false);
-    const [task, setTask] = useState('');
-    const [list, setList] = useState('');
-    const dispatch = useDispatch();
-    const { Todo } = useSelector((state) => state.todo);
-    const navigate = useNavigate()
+  const [isClick, setIsClick] = useState(false);
+  const [showAddCard, setShowAddCard] = useState(false);
+  const [task, setTask] = useState('');
+  const [list, setList] = useState('');
+  const dispatch = useDispatch();
+  const { Todo } = useSelector((state) => state.todo);
 
+  const navigate = useNavigate();
 
-    const handleAdd = () => {
-        dispatch(addTask({ myTask: task }));
-        setTask('');
+  const handleAdd = () => {
+    dispatch(addTask({ myTask: task }));
+    setTask('');
+  };
+
+  const handleAddCard = (taskId) => {
+    dispatch(addList({ taskId, list }));
+    setList('');
+  };
+
+  const handleEnterClick = (e, taskId) => {
+    if (e.keyCode === 13) {
+      handleAddCard(taskId);
+    }
+  };
+
+  const handleEnter = (e) => {
+    if (e.keyCode === 13) {
+      dispatch(addTask({ myTask: task }));
+      setTask('');
+    }
+  };
+
+  const deleteData = (id) => {
+    dispatch(deleteTask({ id }));
+  };
+
+  const deleteList = () => {
+    dispatch();
+  };
+
+  function handleDynamicRouting({ key }) {
+    navigate(`/description/${key}`);
+  }
+
+  const onDragEnd = (result) => {
+    const { source, destination } = result
+    console.log(result)
+
+    if (!destination) return
+
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      return
     }
 
-    const handleAddCard = (taskId) => {
-        dispatch(addList({ taskId, list }));
-        setList('');
-    }
+    let add,
+      active = list
 
-    const handleEnterClick = (e, taskId) => {
-        if (e.keyCode === 13) {
-            handleAddCard(taskId);
-        }
-    }
+    if (source.droppableId) {
 
-    const handleEnter = (e) => {
-        if (e.keyCode === 13) {
-            dispatch(addTask({ myTask: task }));
-            setTask('');
-        }
     }
+  }
 
-    const deleteData = (id) => {
-        dispatch(deleteTask({ id }));
-    }
+  return (
+ 
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className={styles.wrapper}>
+        {Todo.map((title) => (
+          <div className={styles.mapContainer}>
+            <div className={styles.title}>
+              <span>{title.AddData}</span>
+              <span className={styles.more} onClick={() => deleteData(title.id)}>
+                <AiFillDelete />
+              </span>
+              <span className={styles.more}>
+                <BiDotsHorizontalRounded />
+              </span>
+            </div>
 
-    const deleteList = () => {
-        dispatch()
-    }
-
-    function handleDynamicRouting({key}){
-        navigate(`description/${key}`)
-       
-    }
-
-    return (
-        <div className={styles.back}>
-        <div className={styles.wrapper}>
-            {Todo.map((title) => (
-                <div className={styles.mapContainer}>
-                    <div className={styles.title}>
-                        <span>{title.AddData}</span>
-                        <span className={styles.more} onClick={() => deleteData(title.id)}>
-                            <AiFillDelete />
-                        </span>
-                        <span className={styles.more}>
-                            <BiDotsHorizontalRounded />
-                        </span>
-                    </div>
-                    {title.TodoList.map((item) => (
-                        <li className={styles.card} key={item.id}>
+            <div>
+              <Droppable droppableId={title.id} key={title.id}>
+                {(provided) => (
+                  <ul className={styles.draggable} {...provided.droppableProps} ref={provided.innerRef}>
+                    {title.TodoList.map((item, index) => (
+                      <Draggable draggableId={item.id} index={index} key={item.id}>
+                        {(provided) => (
+                          <li className={styles.card} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                             <div className={styles.cardss}>
-                                
-                               <p onClick={()=>handleDynamicRouting({key :item.id})}>{item.myList}</p> 
-                                <AiFillDelete className={styles.deleteListItem} onClick={()=>deleteList(item.id)} />
+                              <p onClick={() => handleDynamicRouting({ key: item.id })}>{item.myList}</p>
+                              <AiFillDelete className={styles.deleteListItem} onClick={() => deleteList(item.id)} />
                             </div>
-
-                        </li>
-
+                          </li>
+                        )}
+                      </Draggable>
                     ))}
-                    {!showAddCard ? (
-                        <button
-                            className={styles.cardButton}
-                            onClick={() => setShowAddCard(!showAddCard)}
-                        >
-                            <GrFormAdd className={styles.addIcon} />
-                            Add a card
-                        </button>
-                    ) : (
-                        <div className={styles.cardContainer}>
-                            <input
-                                className={styles.inputCard}
-                                placeholder="Enter a title for this card..."
-                                value={list}
-                                onChange={(e) => setList(e.target.value)}
-                                onKeyDown={(e) => handleEnterClick(e, title.id)}
-                                autoFocus
-                            />
-                            <div className={styles.buttonContainer}>
-                                <button className={styles.button} onClick={() => handleAddCard(title.id)}>Add card</button>
-                                <CgClose
-                                    className={styles.close}
-                                    onClick={() => {
-                                        setShowAddCard(!showAddCard);
-                                        setList('');
-                                    }}
-                                />
-                            </div>
-                        </div>
-                    )}
+                    {provided.placeholder}
+                  </ul>
+                )}
+              </Droppable>
+            </div>
+
+            {!showAddCard ? (
+              <button className={styles.cardButton} onClick={() => setShowAddCard(!showAddCard)}>
+                <GrFormAdd className={styles.addIcon} />
+                Add a card
+              </button>
+            ) : (
+              <div className={styles.cardContainer}>
+                <input
+                  className={styles.inputCard}
+                  placeholder="Enter a title for this card..."
+                  value={list}
+                  onChange={(e) => setList(e.target.value)}
+                  onKeyDown={(e) => handleEnterClick(e, title.id)}
+                  autoFocus
+                />
+                <div className={styles.buttonContainer}>
+                  <button className={styles.button} onClick={() => handleAddCard(title.id)}>
+                    Add card
+                  </button>
+                  <CgClose
+                    className={styles.close}
+                    onClick={() => {
+                      setShowAddCard(!showAddCard);
+                      setList('');
+                    }}
+                  />
                 </div>
-            ))}
-            {!isClick ? (
-                <button
+              </div>
+            )}
+          </div>
+        ))}
+        <div>
+          <Droppable droppableId="todolist">
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                {!isClick ? (
+                  <button
                     className={styles.listButton}
                     onClick={() => {
-                        setIsClick(!isClick);
+                      setIsClick(!isClick);
                     }}
-                >
+                  >
                     + Add another list
-                </button>
-            ) : (
-                <div className={styles.inputContainer}>
+                  </button>
+                ) : (
+                  <div className={styles.inputContainer}>
                     <input
-                        className={styles.input}
-                        type="text"
-                        placeholder="Enter list title..."
-                        value={task}
-                        onChange={(e) => setTask(e.target.value)}
-                        onKeyDown={handleEnter}
-                        autoFocus
+                      className={styles.input}
+                      type="text"
+                      placeholder="Enter list title..."
+                      value={task}
+                      onChange={(e) => setTask(e.target.value)}
+                      onKeyDown={handleEnter}
+                      autoFocus
                     />
                     <div className={styles.buttonContainer}>
-                        <button className={styles.button} onClick={handleAdd}>
-                            Add list
-                        </button>
-                        <CgClose
-                            className={styles.close}
-                            onClick={() => {
-                                setIsClick(!isClick);
-                                setTask('');
-                            }}
-                        />
+                      <button className={styles.button} onClick={handleAdd}>
+                        Add list
+                      </button>
+                      <CgClose
+                        className={styles.close}
+                        onClick={() => {
+                          setIsClick(!isClick);
+                          setTask('');
+                        }}
+                      />
                     </div>
-                </div>
+                  </div>
+                )}
+              </div>
             )}
+          </Droppable>
         </div>
-        </div>
-    );
+      </div>
+    </DragDropContext>
+  );
 }
-export default TodoList
+
+export default TodoList;
