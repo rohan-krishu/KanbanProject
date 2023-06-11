@@ -8,6 +8,7 @@ import { GrFormAdd } from 'react-icons/gr';
 import styles from './TodoList.module.css';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { listItemClasses } from '@mui/material';
 
 function TodoList() {
   const [isClick, setIsClick] = useState(false);
@@ -46,8 +47,8 @@ function TodoList() {
     dispatch(deleteTask({ id }));
   };
 
-  const deleteList = () => {
-    dispatch();
+  function deleteList(key){
+    dispatch(listItemClasses(key))
   };
 
   function handleDynamicRouting({ key }) {
@@ -56,7 +57,7 @@ function TodoList() {
 
   const onDragEnd = (result) => {
     const { source, destination } = result
-    console.log(result)
+    // console.log(result)
 
     if (!destination) return
 
@@ -97,7 +98,7 @@ function TodoList() {
                           <li className={styles.card} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
                             <div className={styles.cardss}>
                               <p onClick={() => handleDynamicRouting({ key: item.id })}>{item.myList}</p>
-                              <AiFillDelete className={styles.deleteListItem} onClick={() => deleteList(item.id)} />
+                              <AiFillDelete className={styles.deleteListItem} onClick={() => deleteList({ key: item.id })} />
                             </div>
                           </li>
                         )}
