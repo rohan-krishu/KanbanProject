@@ -1,0 +1,107 @@
+.heading{
+    margin-left: 0.5rem;
+}
+.icon{
+    margin-left: 1.5rem; 
+}
+
+.searchbar{
+  margin-left: 4rem;
+  width: 22vw;
+  margin-bottom: 0.5rem;
+  
+}
+
+.notification{
+   display: flex;
+   margin-left: 28rem;
+   width: 7vw;
+}
+
+.dropdown{
+    color : white;
+    border: none;
+    border-color: black;
+    height: 4vh;
+}
+.dropdown:hover{
+    border: none;
+}
+.select{
+    color: white;
+    background-color: black;
+    border: none;
+}
+
+.option{
+   margin: 100px;
+    
+
+}
+.home{
+    margin-left: 1rem;
+}
+.tag{
+    margin-left: 16rem;
+}
+
+.img{
+    width: 3vw;
+    height:6vh;
+    margin-left: 1rem;
+    border-radius: 3rem;
+   
+}
+.star{
+    margin-left: 1rem;
+    width: 4vw;
+    height: 3vh;
+    margin-right: 0.5rem;
+}
+.users{
+    margin-left: 0.5rem; 
+    margin-right: 0.2rem; 
+}
+.power{
+    margin-left: 39rem;
+    margin-right: 0.2rem;
+}
+.Automation{
+    margin-left: 1rem;
+}
+.filter{
+    margin-left: 1rem;
+}
+.div{
+    background-color: grey;
+    width: 4.5vw;
+    height: 4.5vh;
+    display: flex;
+    align-items: center;
+   margin-left: 1rem;
+   border-radius: 0.2rem;
+}
+.share {
+   margin-left: 0.5rem;
+}
+.dots{
+    margin-left: 1rem ;
+    margin-right: 1rem;
+}
+.back{
+    background-image: url("https://www.businessinsider.in/photo/86634604/buy-best-3d-wallpapers-in-india.jpg?imgsize=257466");
+    height: 100vh;
+    /* background-repeat: no-repeat;
+    background-size: cover; */
+  /* background-attachment: fixed; */
+/* background-color: rgba(246, 243, 243, 0.5); */
+
+}
+.Appbar{
+
+    background-color: rgb(22, 22, 22);
+    height: 8vh;
+     position : sticky ;
+    
+     top : 0;
+}

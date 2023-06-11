@@ -8,6 +8,9 @@ import { GrFormAdd } from 'react-icons/gr';
 import styles from './TodoList.module.css';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import SearchAppBar from '../Navbar/Navbar';
+
+
 
 function TodoList() {
   const [isClick, setIsClick] = useState(false);
@@ -94,7 +97,10 @@ function TodoList() {
   }
 
   return (
+
     <div className={styles.back}>
+    <SearchAppBar/>
+    
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.wrapper}>
         {Todo.map((title) => (
