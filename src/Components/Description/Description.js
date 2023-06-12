@@ -6,134 +6,70 @@ import { Editor } from '@tinymce/tinymce-react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import './Description.css'
-import TodoList from '../TodoList/TodoList';
+import { CgClose } from 'react-icons/cg';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const Description = () => {
     const [content, setContent] = useState('<p>Description:</p>');
-    const { Todo } = useSelector(state => state.todo)
-    const { id } = useParams()
+    const { id, cardName } = useParams();
+    const Navigate = useNavigate();
 
     const handleEditorChange = (content, editor) => {
         setContent(content);
     };
 
-    const users = Todo.find((ele)=>ele.id === id);
-    console.log(users)
+    const HandleClose = () => {
+        Navigate("/kanban")
+    }
+
+    function addData(){
+        alert("Hello")
+    }
 
     return (
+
         <div className='main-container'>
-            <div className='container'>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
-                        <Box p={2} width="100%" mt={2}>
-                            <div style={{ marginTop: '50px' }}>
-                                {/* <TextField id="outlined-basic" label="Section A" variant="outlined" fullWidth /> */}
-                               
-                                <Button variant="outlined" startIcon={<RemoveRedEyeIcon />} href="#outlined-buttons" sx={{ mt: 2 }}>
-                                    Add
-                                </Button>
-                            </div>
+            <Grid container spacing={2} className='seconcontainer'>
+                <Grid item xs={12} md={6}>
+                    <Box p={2} width="100%" mt={2}>
+                        <div style={{ marginTop: '50px', paddingBottom: '50px' }}>
+                            <h2 className='title'>{cardName}</h2>
 
-                            <div style={{ marginTop: '60px' }}>
-                                <Editor
-                                    apiKey="vzto6l8svuc4whex2azy8pkvhl5vb3wr11y4tys3y7jwo686"
-                                    initialValue={content}
-                                    init={{
-                                        height: 300,
-                                        menubar: false,
-                                        plugins: ['paste', 'link'],
-                                        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | link',
-                                    }}
-                                    onEditorChange={handleEditorChange}
-                                />
-                            </div>
+                            <Button variant="outlined" startIcon={<RemoveRedEyeIcon />} href="#outlined-buttons" sx={{ mt: 2 }}>
+                                Add
+                            </Button>
+                        </div>
+                        <Editor
+                            value={content}
+                            onEditorChange={handleEditorChange}
+                            apiKey="vzto6l8svuc4whex2azy8pkvhl5vb3wr11y4tys3y7jwo686"
+                        />
 
-                            <div style={{ display: 'flex', alignItems: 'center', marginTop: '70px', marginBottom: '2rem' }}>
-                                <AccountCircleIcon />
-                                <TextField id="outlined-basic" label="Outlined" variant="outlined" fullWidth sx={{ marginLeft: 2 }} />
-                            </div>
-                        </Box>
-                    </Grid>
+                        <Button variant="outlined" startIcon={<RemoveRedEyeIcon />} href="#outlined-buttons" sx={{ mt: 2 }} onClick={addData}>
+                            Add
+                        </Button>
+                        <div style={{ display: 'flex', alignItems: 'center', marginTop: '70px', marginBottom: '2rem' }}>
+                            <AccountCircleIcon />
+                            <TextField id="outlined-basic" label="Outlined" variant="outlined" fullWidth sx={{ marginLeft: 2 }} />
+                        </div>
 
-                    <Grid item xs={12} md={6}>
-                        <Box p={2} width="400px" mt={2} textAlign="center">
-                            <div>
-                                <div>
-                                    <h3>Add to card</h3>
-                                    <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 1
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 2
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 3
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 4
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 5
-                                        </Button>
-                                    </ButtonGroup>
-                                </div>
-                                <div>
-                                    <h3>Power-Ups</h3>
-                                    <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 1
-                                        </Button>
-                                    </ButtonGroup>
-                                </div>
-                                <div>
-                                    <h3>Automation</h3>
-                                    <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 1
-                                        </Button>
-                                    </ButtonGroup>
-                                </div>
-                                <div>
-                                    <h3>Actions</h3>
-                                    <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 1
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 2
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 3
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 4
-                                        </Button>
-                                        <Button>
-                                            <RemoveRedEyeIcon />
-                                            Button 5
-                                        </Button>
-                                    </ButtonGroup>
-                                </div>
-                            </div>
-                        </Box>
-                    </Grid>
+
+                    </Box>
                 </Grid>
-            </div>
-
+                <Grid item xs={12} md={6}>
+                    <Box p={2} width="10%" mt={2} textAlign="center">
+                        <div>
+                            <Button onClick={HandleClose}>
+                                <CgClose />
+                            </Button>
+                        </div>
+                    </Box>
+                </Grid>
+            </Grid>
         </div>
 
     );

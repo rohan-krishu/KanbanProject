@@ -12,7 +12,8 @@ function App() {
 
         <Route path="/" element={<Homepage />} />
         <Route path="/kanban" element={<TodoList />} />
-        <Route path="/description/:id" element={<Description />} />
+        <Route path="/description/:id/:cardName" element={<Description />} />
+
       </Routes>
 
     </div>

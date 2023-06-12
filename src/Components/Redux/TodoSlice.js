@@ -8,18 +8,18 @@ const TodoSlice = createSlice({
     },
     reducers: {
         addTask: (state, action) => {
-            if(action.payload.myTask){
-                
-            const newTask = {
-                AddData: action.payload.myTask,
-                id: uuidv4(),
-                TodoList: []
-            }
+            if (action.payload.myTask) {
 
-            state.Todo.push(newTask)
-            localStorage.setItem("tasks", JSON.stringify(state.Todo))
-        }
-    },
+                const newTask = {
+                    AddData: action.payload.myTask,
+                    id: uuidv4(),
+                    TodoList: []
+                }
+
+                state.Todo.push(newTask)
+                localStorage.setItem("tasks", JSON.stringify(state.Todo))
+            }
+        },
 
         deleteTask: (state, action) => {
             state.Todo = state.Todo.filter((item) => item.id !== action.payload.id);
@@ -30,31 +30,42 @@ const TodoSlice = createSlice({
             const { taskId, list } = action.payload;
             const task = state.Todo.find((item) => item.id === taskId);
 
-            if(task){
-                if(list){
-                    const newList={
+            
+                if (list) {
+                    const newList = {
                         id: uuidv4(),
                         myList: list
                     }
                     task.TodoList.push(newList)
                     localStorage.setItem("tasks", JSON.stringify(state.Todo))
-
                 }
-            }
+            
         },
-        ListItemDelete:(state, action)=>{
-            // const newList = state.Todo.filter((item) => item.id === action.payload.titleId );
-            // newList.TodoList = newList.TodoList.filter((item) => item.id !== action.payload.id);
+        ListItemDelete: (state, action) => {
+            state.Todo = state.Todo.map((item) => {
+                if (item.id === action.payload.titleId) {
+                    item.TodoList = item.TodoList.filter(
+                        (listItem) => listItem.id !== action.payload.id
+                    );
+                }
+                return item;
+            });
+            localStorage.setItem("tasks", JSON.stringify(state.Todo));
         },
-        editTask: (state, action) => { 
+
+
+        editTask: (state, action) => {
             state.Todo.map((item) => {
-                if(item.id === action.payload.id){
-                    if(action.payload.title){
+                if (item.id === action.payload.id) {
+                    if (action.payload.title) {
                         item.AddData = action.payload.title
                     }
                 }
             })
-          }
+        },
+        editDescription: (state, action)=>{
+            
+        }
     }
 });
 
