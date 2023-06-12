@@ -2,7 +2,6 @@
     width: 90%;
     height: 750px;
     background-color: rgb(243, 243, 243);
-    
 }
 
 .main-container{
@@ -10,3 +9,7 @@
     align-items: center;
     justify-content: center;
 }
+
+.grid-item {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
