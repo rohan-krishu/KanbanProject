@@ -96,10 +96,53 @@ function TodoList() {
     );
   };
 
-  return (
-    <div className={styles.back}>
-      <SearchAppBar />
+  const [backgroundImage, setBackgroundImage] = useState('');
 
+  const images = [
+    'https://c4.wallpaperflare.com/wallpaper/175/524/956/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg',
+    'https://c4.wallpaperflare.com/wallpaper/108/140/869/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg',
+    'https://c4.wallpaperflare.com/wallpaper/1005/822/563/star-wars-death-star-at-at-space-wallpaper-preview.jpg',
+    'https://c4.wallpaperflare.com/wallpaper/500/442/354/outrun-vaporwave-hd-wallpaper-preview.jpg',
+    'https://c4.wallpaperflare.com/wallpaper/586/603/742/minimalism-4k-for-mac-desktop-wallpaper-preview.jpg',
+    // Add more image URLs here
+  ];
+
+  const changeBackgroundImage = () => {
+    const randomIndex = Math.floor(Math.random() * images.length);
+    setBackgroundImage(images[randomIndex]);
+  };
+
+  return (
+    <div className={styles.back} 
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        minHeight: '100vh',
+      }}>
+      <SearchAppBar />
+      <button 
+        onClick={changeBackgroundImage} 
+        style={{
+          marginTop: '110px', 
+          marginLeft: '85%',
+          padding: '10px 20px',
+          backgroundColor: 'skyblue',
+          color: 'white',
+          borderRadius: '5px',
+          border: 'none',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+          cursor: 'pointer',
+          transition: 'background-color 0.3s ease-in-out',
+          fontFamily: 'Arial, sans-serif',
+          fontSize: '16px',
+          fontWeight: 'bold',
+        }}
+      >
+        Change Background
+        </button>
+      
       <DragDropContext onDragEnd={onDragEnd}>
         <div className={styles.wrapper}>
           {Todo.map((title) => (
