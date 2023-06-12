@@ -4,12 +4,10 @@ import { RemoveRedEye as RemoveRedEyeIcon } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Editor } from '@tinymce/tinymce-react';
 import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import { useParams } from 'react-router-dom';
 import './Description.css'
-import { CgClose } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
-
+import { CgClose } from 'react-icons/cg';
 
 
 
@@ -17,17 +15,12 @@ const Description = () => {
     const [content, setContent] = useState('<p>Description:</p>');
     const { id, cardName } = useParams();
     const Navigate = useNavigate();
-
     const handleEditorChange = (content, editor) => {
         setContent(content);
     };
 
     const HandleClose = () => {
         Navigate("/kanban")
-    }
-
-    function addData(){
-        alert("Hello")
     }
 
     return (
@@ -49,9 +42,9 @@ const Description = () => {
                             apiKey="vzto6l8svuc4whex2azy8pkvhl5vb3wr11y4tys3y7jwo686"
                         />
 
-                        <Button variant="outlined" startIcon={<RemoveRedEyeIcon />} href="#outlined-buttons" sx={{ mt: 2 }} onClick={addData}>
+                        {/* <Button variant="outlined" startIcon={<RemoveRedEyeIcon />} href="#outlined-buttons" sx={{ mt: 2 }} onClick={addData}>
                             Add
-                        </Button>
+                        </Button> */}
                         <div style={{ display: 'flex', alignItems: 'center', marginTop: '70px', marginBottom: '2rem' }}>
                             <AccountCircleIcon />
                             <TextField id="outlined-basic" label="Outlined" variant="outlined" fullWidth sx={{ marginLeft: 2 }} />
