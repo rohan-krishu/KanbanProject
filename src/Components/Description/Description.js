@@ -42,14 +42,10 @@ const Description = () => {
                             apiKey="vzto6l8svuc4whex2azy8pkvhl5vb3wr11y4tys3y7jwo686"
                         />
 
-                        {/* <Button variant="outlined" startIcon={<RemoveRedEyeIcon />} href="#outlined-buttons" sx={{ mt: 2 }} onClick={addData}>
-                            Add
-                        </Button> */}
                         <div style={{ display: 'flex', alignItems: 'center', marginTop: '70px', marginBottom: '2rem' }}>
                             <AccountCircleIcon />
                             <TextField id="outlined-basic" label="Outlined" variant="outlined" fullWidth sx={{ marginLeft: 2 }} />
                         </div>
-
 
                     </Box>
                 </Grid>
