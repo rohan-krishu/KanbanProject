@@ -191,9 +191,9 @@
 .back{
     width: 100vw;
     height: 100vh;
-    background-image: url("https://c4.wallpaperflare.com/wallpaper/1005/822/563/star-wars-death-star-at-at-space-wallpaper-preview.jpg");
+    /* background-image: url("https://c4.wallpaperflare.com/wallpaper/1005/822/563/star-wars-death-star-at-at-space-wallpaper-preview.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
     margin: 0;
     padding: 0;
 }
