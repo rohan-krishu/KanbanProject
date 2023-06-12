@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTask, deleteTask, addList, editTask, ListItemDelete } from '../Redux/TodoSlice';
+import { addTask, deleteTask, addList, editTask, ListItemDelete, reorderList } from '../Redux/TodoSlice';
 import { CgClose } from 'react-icons/cg';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { AiFillDelete } from 'react-icons/ai';
@@ -9,7 +9,6 @@ import styles from './TodoList.module.css';
 import { useNavigate } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import SearchAppBar from '../Navbar/Navbar';
-
 
 function TodoList() {
   const [isClick, setIsClick] = useState(false);
@@ -74,19 +73,27 @@ function TodoList() {
   const handleDynamicRouting = (key, cardName) => {
     navigate(`/description/${key}/${cardName}`);
   };
-  
+
   const onDragEnd = (result) => {
     const { source, destination } = result;
 
     if (!destination) return;
 
-    
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
       return;
     }
+
+    dispatch(
+      reorderList({
+        sourceIndex: source.index,
+        destinationIndex: destination.index,
+        sourceId: source.droppableId,
+        destinationId: destination.droppableId,
+      })
+    );
   };
 
   return (
@@ -151,9 +158,8 @@ function TodoList() {
                             >
                               <div className={styles.cardss}>
                                 <p
-                                ///////////////////////////////////////////////////
                                   onClick={() =>
-                                    handleDynamicRouting( item.id, item.myList)
+                                    handleDynamicRouting(item.id, item.myList)
                                   }
                                 >
                                   {item.myList}
@@ -215,10 +221,7 @@ function TodoList() {
           <div>
             <Droppable droppableId='todolist'>
               {(provided) => (
-                <div
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                >
+                <div ref={provided.innerRef} {...provided.droppableProps}>
                   {!isClick ? (
                     <button
                       className={styles.listButton}

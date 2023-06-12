@@ -60,7 +60,6 @@ const Description = () => {
                 </Grid>
             </Grid>
         </div>
-
     );
 };
 
